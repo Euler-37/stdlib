@@ -12,6 +12,7 @@ module stdlib_linalg
   public :: eye
   public :: trace
   public :: outer_product
+  public :: repmat
   public :: is_square
   public :: is_diagonal
   public :: is_symmetric
@@ -239,6 +240,54 @@ module stdlib_linalg
       end function outer_product_iint64
   end interface outer_product
 
+  ! repeat matrix (of 2d array)
+  interface repmat
+    !! version: experimental
+    !!
+    !! Creates large matrices from a small array, `repmat()` repeats the given values of the array to create the large matrix.
+    !! ([Specification](../page/specs/stdlib_linalg.html#
+    !! repmat-creates-large-matrices-from-a-small-array))
+      pure module function repmat_rsp(a,m,n) result(res)
+        real(sp), intent(in) :: a(:,:)
+        integer, intent(in) :: m,n
+        real(sp) :: res(m*size(a,1),n*size(a,2))
+      end function repmat_rsp
+      pure module function repmat_rdp(a,m,n) result(res)
+        real(dp), intent(in) :: a(:,:)
+        integer, intent(in) :: m,n
+        real(dp) :: res(m*size(a,1),n*size(a,2))
+      end function repmat_rdp
+      pure module function repmat_csp(a,m,n) result(res)
+        complex(sp), intent(in) :: a(:,:)
+        integer, intent(in) :: m,n
+        complex(sp) :: res(m*size(a,1),n*size(a,2))
+      end function repmat_csp
+      pure module function repmat_cdp(a,m,n) result(res)
+        complex(dp), intent(in) :: a(:,:)
+        integer, intent(in) :: m,n
+        complex(dp) :: res(m*size(a,1),n*size(a,2))
+      end function repmat_cdp
+      pure module function repmat_iint8(a,m,n) result(res)
+        integer(int8), intent(in) :: a(:,:)
+        integer, intent(in) :: m,n
+        integer(int8) :: res(m*size(a,1),n*size(a,2))
+      end function repmat_iint8
+      pure module function repmat_iint16(a,m,n) result(res)
+        integer(int16), intent(in) :: a(:,:)
+        integer, intent(in) :: m,n
+        integer(int16) :: res(m*size(a,1),n*size(a,2))
+      end function repmat_iint16
+      pure module function repmat_iint32(a,m,n) result(res)
+        integer(int32), intent(in) :: a(:,:)
+        integer, intent(in) :: m,n
+        integer(int32) :: res(m*size(a,1),n*size(a,2))
+      end function repmat_iint32
+      pure module function repmat_iint64(a,m,n) result(res)
+        integer(int64), intent(in) :: a(:,:)
+        integer, intent(in) :: m,n
+        integer(int64) :: res(m*size(a,1),n*size(a,2))
+      end function repmat_iint64
+  end interface repmat
 
   ! Check for squareness
   interface is_square
